@@ -186,6 +186,11 @@ def _friendly_error(exc: Exception) -> str:
         return "The AI provider is rate-limiting requests. Try again in a minute."
     if "Parsing failed" in text or "tool_use_failed" in text:
         return "The model returned a tool call the provider could not parse. Try rephrasing."
+    if "tool call validation failed" in text.lower() or "not in request.tools" in text:
+        # Groq rejects a tool call whose name is not in the offered list — seen in
+        # practice when the model emits a name containing an invisible character.
+        # Recovery cannot help once text has been streamed, so at least say so plainly.
+        return "The model emitted a tool call the provider rejected. Please ask again."
     if "Request too large" in text:
         return "That request was too large for the model. Ask about a smaller area."
     return text

@@ -307,6 +307,20 @@ def test_friendly_error_explains_tool_parse_failure() -> None:
     assert "could not parse" in message
 
 
+def test_friendly_error_explains_tool_call_validation_failure() -> None:
+    # Groq's shape when the model emits a tool name that was not offered.
+    exc = Exception(
+        "Tool call validation failed: attempted to call tool 'get_file_content' "
+        "which was not in request.tools"
+    )
+
+    message = react_agent._friendly_error(exc)
+
+    assert "rejected" in message
+    # The raw provider text must not be surfaced to the user.
+    assert "validation failed" not in message
+
+
 def test_minimal_transcript_has_no_tool_exchange() -> None:
     messages = [
         {"role": "system", "content": "sys"},
