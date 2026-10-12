@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* CodeMap AI — dark-only developer tool palette */
+:root {
+  /* Backgrounds */
+  --background: #09090b;
+  --surface: #101012;
+  --surface-2: #18181b;
+  --surface-3: #232326;
+  /* Foregrounds */
+  --foreground: #f4f4f5;
+  --text: #e4e4e7;
+  --muted: #a1a1aa;
+  --subtle: #52525b;
+  --faint: #3f3f46;
+  /* Lines */
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  /* Accent — teal/cyan, stands out from the graph's node colors */
+  --accent: #2dd4bf;
+  --accent-glow: rgba(45, 212, 191, 0.35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-foreground: var(--foreground);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-faint: var(--faint);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection tint */
+::selection {
+  background: var(--accent-glow);
+  color: var(--foreground);
+}
+
+/* Graph edges: animate only the highlighted/traced path, not every link */
+.cmap-link.is-active {
+  stroke-dasharray: 6 4;
+  animation: cmap-dash 1s linear infinite;
+}
+
+@keyframes cmap-dash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cmap-link.is-active {
+    animation: none;
+  }
+}
+
+/* Cited line in the code viewer */
+.cmap-highlight {
+  display: block;
+  background: rgba(45, 212, 191, 0.14);
+  box-shadow: inset 2px 0 0 var(--accent);
+}

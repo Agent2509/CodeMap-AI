@@ -1,0 +1,46 @@
+# --- Secrets: never commit ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Node / Next ---
+node_modules/
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# --- Generated index data (regenerable, large) ---
+chroma_data/
+projects/
+clones/
+current_graph.json
+graphify-out/
+
+# --- Local agent/tool config (machine-specific) ---
+.commandcode/
+.opencode/
+
+# --- Preserved nested git histories (see README note) ---
+*.local-backup/
+
+# --- OS / editor ---
+.DS_Store
+*.log

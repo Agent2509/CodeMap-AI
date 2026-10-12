@@ -1,0 +1,5 @@
+{
+  "venvPath": "backend",
+  "venv": ".venv",
+  "exclude": ["backend/sample_project", "backend/.venv", "backend/projects"]
+}
